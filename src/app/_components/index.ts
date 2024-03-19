@@ -2,8 +2,6 @@
 
 import { trpcClient } from '../../../lib/trpc/client';
 
-const Component = () => {
+const Component = () => {};
 
-};
-
-
+export default Component;

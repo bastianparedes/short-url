@@ -1,23 +1,26 @@
-import React from 'react';
-
+import type { Metadata } from 'next';
+import { Urbanist } from 'next/font/google';
+import './globals.css';
 import { TrpcProvider } from './_contexts/TrpcProvider';
 import { url } from '../../lib/trpc/config';
-import 'bastianparedes/styles/global.css';
-import 'bastianparedes/styles/normalize.css';
-import '../../../styles/styles.scss';
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const urbanist = Urbanist({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  title: 'Short Url',
+  description: 'Short Url'
+};
+
+export default function RootLayout({
+  children
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="es-ES">
-      <head>
-        <meta charSet="utf-8" />
-        <title>Bastián Paredes</title>
-      </head>
-      <body>
+      <body className={urbanist.className}>
         <TrpcProvider url={url}>{children}</TrpcProvider>
       </body>
     </html>
   );
-};
-
-export default Layout;
+}

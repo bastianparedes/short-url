@@ -1,4 +1,4 @@
-import nextConfig from '../../next.config';
+import nextConfig from '../../next.config.mjs';
 
 const url = (() => {
   const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
