@@ -14,7 +14,7 @@ const appRouter = router({
         longUrl: z.string()
       })
     )
-    .mutation(async ({ input }) => insertUrl(input)),
+    .mutation(async ({ input }) => await insertUrl(input)),
   getLongUrl: publicProcedure
     .input(
       z.object({

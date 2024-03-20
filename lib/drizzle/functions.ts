@@ -3,12 +3,14 @@ import * as schema from './schema';
 import db from './index';
 
 const getLongUrl = async ({ shortPath }: { shortPath: string }) => {
-  return await db.query.Url.findFirst({
-    columns: {
-      longUrl: true
-    },
-    where: eq(schema.Url.shortPath, shortPath)
-  });
+  return (
+    await db.query.Url.findFirst({
+      columns: {
+        longUrl: true
+      },
+      where: eq(schema.Url.shortPath, shortPath)
+    })
+  )?.longUrl;
 };
 
 const insertUrl = async ({ longUrl }: { longUrl: string }) => {
@@ -17,27 +19,25 @@ const insertUrl = async ({ longUrl }: { longUrl: string }) => {
   });
 
   const longUrlIsAlreadyStored = longUrlData !== undefined;
-  if (longUrlIsAlreadyStored) return longUrlData;
+  if (longUrlIsAlreadyStored) return process.env.ORIGIN + longUrlData.shortPath;
 
   while (true) {
     const shortPath = (Math.random() * 2 ** 53).toString(36);
-
     const shortPathIsUsed =
       (await db.query.Url.findFirst({
         where: eq(schema.Url.shortPath, shortPath)
       })) !== undefined;
-
     if (shortPathIsUsed) continue;
 
     const result = await db
       .insert(schema.Url)
       .values({
-        shortPath,
+        shortPath: shortPath,
         longUrl
       })
       .returning();
 
-    return result[0];
+    return process.env.ORIGIN + result[0].shortPath;
   }
 };
 

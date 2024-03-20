@@ -18,7 +18,7 @@ const handler = async (
       status: 404
     });
 
-  redirect(params.shortPath);
+  redirect(longUrl);
 };
 
 export {
