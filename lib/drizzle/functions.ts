@@ -2,6 +2,8 @@ import { eq } from 'drizzle-orm';
 import * as schema from './schema';
 import db from './index';
 
+const origin = `https://${process.env.DOMAIN}/api/`;
+
 const getLongUrl = async ({ shortPath }: { shortPath: string }) => {
   return (
     await db.query.Url.findFirst({
@@ -19,7 +21,7 @@ const insertUrl = async ({ longUrl }: { longUrl: string }) => {
   });
 
   const longUrlIsAlreadyStored = longUrlData !== undefined;
-  if (longUrlIsAlreadyStored) return process.env.ORIGIN + longUrlData.shortPath;
+  if (longUrlIsAlreadyStored) return origin + longUrlData.shortPath;
 
   while (true) {
     const shortPath = (Math.random() * 2 ** 53).toString(36);
@@ -37,7 +39,7 @@ const insertUrl = async ({ longUrl }: { longUrl: string }) => {
       })
       .returning();
 
-    return process.env.ORIGIN + result[0].shortPath;
+    return origin + result[0].shortPath;
   }
 };
 

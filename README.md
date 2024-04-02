@@ -6,5 +6,4 @@ Variable | Mandatory | Description | Example
 --- | --- | --- | ---
 DATABASE_URL | Yes | URL for Turso
 DATABASE_TOKEN | Yes | Token for Turso
-ORIGIN | Yes | Url for short Urls | https://short-url.bastianparedes.com/api/
 DOMAIN | Yes | Domain for tRPC | short-url.bastianparedes.com
