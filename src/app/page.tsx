@@ -24,6 +24,7 @@ const Page = () => {
       setShortUrl(data);
     }
   });
+  // bg-gradient-to-bl from-white to-black bg-clip-text text-transparent
 
   const handleOnSubmit = () => {
     insertUrl.mutate({ longUrl });
@@ -33,6 +34,14 @@ const Page = () => {
     <>
       {insertUrl.isLoading && <Loader />}
       <main className="flex min-h-svh flex-col items-center p-24">
+        <div className="flex flex-col justify-center gap-5 mb-10">
+          <h1 className="text-8xl text-balance text-center bg-gradient-to-r from-indigo-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent">
+            Shorten your URLs, hide them, and make them easy to share
+          </h1>
+          <h2 className="text-center text-gray-600 text-4xl">
+            Helping to create smaller, manageable, and shareable URLs
+          </h2>
+        </div>
         {shortUrl === null ? (
           <form
             className="border-2 border-solid border-black flex h-32 text-4xl"
