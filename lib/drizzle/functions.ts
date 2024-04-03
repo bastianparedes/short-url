@@ -15,7 +15,7 @@ const getLongUrl = async ({ shortPath }: { shortPath: string }) => {
   )?.longUrl;
 };
 
-const insertUrl = async ({ longUrl }: { longUrl: string }) => {
+const insertUrl = async (longUrl: string) => {
   const longUrlData = await db.query.Url.findFirst({
     where: eq(schema.Url.longUrl, longUrl)
   });
