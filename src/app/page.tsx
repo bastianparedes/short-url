@@ -26,8 +26,8 @@ const Page = () => {
   };
 
   const insertUrl = trpcClient.insertUrl.useMutation({
-    onError() {
-      alert('Url not valid');
+    onError(error) {
+      alert(error.message);
     },
     onSuccess(data) {
       setShortUrl(data);

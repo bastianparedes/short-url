@@ -16,6 +16,11 @@ const appRouter = router({
     .mutation(async ({ input }) => {
       try {
         const url = new URL(input.longUrl);
+        if (url.host === process.env.domain)
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: 'Invalid Url contains domain'
+          });
         return await insertUrl(url.toString());
       } catch (error) {
         throw new TRPCError({
